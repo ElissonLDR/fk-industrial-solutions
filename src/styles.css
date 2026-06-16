@@ -4,6 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-display: "Barlow", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", "Barlow", system-ui, sans-serif;
+
+  --color-fk-red: #BD1C2C;
+  --color-fk-red-deep: #8E0F1D;
+  --color-fk-black: #080808;
+  --color-fk-white: #F7F7F4;
+  --color-fk-metal: #B8B8B2;
+  --color-fk-steel: #2A2A2A;
+  --color-fk-blue: #13508B;
+  --color-fk-green: #0A8E48;
+  --color-fk-green-bright: #0FB85C;
+}
+
 /*
  * Design system definition.
  *
@@ -95,6 +110,45 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .industrial-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .diagonal-stripes {
+    background-image: repeating-linear-gradient(
+      135deg,
+      #BD1C2C 0,
+      #BD1C2C 14px,
+      #080808 14px,
+      #080808 28px
+    );
+  }
+  .text-stroke-white {
+    -webkit-text-stroke: 1px rgba(247,247,244,0.6);
+    color: transparent;
+  }
+  .clip-slant {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 32px), 0 100%);
+  }
 }
 
 .dark {
