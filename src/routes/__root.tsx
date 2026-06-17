@@ -80,6 +80,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "Grupo FK" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "Lovable App" },
+      { property: "og:title", content: "Lovable App" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "description", content: "Landing page for FK Industrial Solutions, generating leads for agro-industrial machinery sales." },
+      { property: "og:description", content: "Landing page for FK Industrial Solutions, generating leads for agro-industrial machinery sales." },
+      { name: "twitter:description", content: "Landing page for FK Industrial Solutions, generating leads for agro-industrial machinery sales." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/313237d3-bf8d-48cc-afff-bf7d0478c7b2/id-preview-4ae11d08--95598059-2a26-4a13-af79-39ab830ec783.lovable.app-1781670227445.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/313237d3-bf8d-48cc-afff-bf7d0478c7b2/id-preview-4ae11d08--95598059-2a26-4a13-af79-39ab830ec783.lovable.app-1781670227445.png" },
     ],
     links: [
       {
