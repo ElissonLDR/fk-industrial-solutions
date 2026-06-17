@@ -119,6 +119,8 @@
   body {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    margin: 0;
+    background-color: #080808;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
@@ -127,6 +129,49 @@
 }
 
 @layer utilities {
+  .reveal {
+    opacity: 0;
+    transition-property: opacity, transform, filter;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform, filter;
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .reveal-up {
+    transform: translateY(32px);
+  }
+
+  .reveal-down {
+    transform: translateY(-24px);
+  }
+
+  .reveal-left {
+    transform: translateX(-32px);
+  }
+
+  .reveal-right {
+    transform: translateX(32px);
+  }
+
+  .reveal-text {
+    transform: translateY(16px);
+    filter: blur(6px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      transition: none;
+    }
+  }
+
   .industrial-grid {
     background-image:
       linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
@@ -148,6 +193,158 @@
   }
   .clip-slant {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 32px), 0 100%);
+  }
+
+  .shape-para {
+    --slant: 14px;
+    clip-path: polygon(
+      var(--slant) 0,
+      100% 0,
+      calc(100% - var(--slant)) 100%,
+      0 100%
+    );
+  }
+
+  .shape-para-sm {
+    --slant: 10px;
+  }
+
+  .shape-para-md {
+    --slant: 14px;
+  }
+
+  .shape-para-lg {
+    --slant: 18px;
+  }
+
+  .shape-para-inset {
+    padding-left: calc(1.75rem + var(--slant) * 0.45);
+    padding-right: calc(1.75rem + var(--slant) * 0.45);
+  }
+
+  .shape-para-inset-lg {
+    padding-left: calc(2.25rem + var(--slant) * 0.45);
+    padding-right: calc(2.25rem + var(--slant) * 0.45);
+  }
+
+  .shape-para-shadow {
+    filter: drop-shadow(0 8px 24px rgba(8, 8, 8, 0.1));
+  }
+
+  .shape-para-shadow-dark {
+    filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.35));
+  }
+
+  .shape-para-accent-left::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 4px;
+    background: #bd1c2c;
+    clip-path: polygon(0 0, 100% var(--slant), 100% calc(100% - var(--slant)), 0 100%);
+    pointer-events: none;
+  }
+
+  .shape-para-accent-top::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: var(--slant);
+    right: var(--slant);
+    height: 3px;
+    background: var(--para-accent, #bd1c2c);
+    pointer-events: none;
+  }
+
+  .btn-industrial {
+    --slant: 14px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    background-color: #0a8e48;
+    clip-path: polygon(
+      var(--slant) 0,
+      100% 0,
+      calc(100% - var(--slant)) 100%,
+      0 100%
+    );
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .btn-industrial:hover {
+    background-color: #0fb85c;
+  }
+
+  .btn-industrial > *,
+  .btn-industrial-icon > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-industrial-sm {
+    --slant: 10px;
+    padding-left: calc(1rem + var(--slant) * 0.45);
+    padding-right: calc(1rem + var(--slant) * 0.45);
+  }
+
+  .btn-industrial-md {
+    --slant: 14px;
+    padding-left: calc(1.5rem + var(--slant) * 0.45);
+    padding-right: calc(1.5rem + var(--slant) * 0.45);
+  }
+
+  .btn-industrial-lg {
+    --slant: 16px;
+    padding-left: calc(1.75rem + var(--slant) * 0.45);
+    padding-right: calc(1.75rem + var(--slant) * 0.45);
+  }
+
+  .btn-industrial-full {
+    width: 100%;
+    --slant: 12px;
+  }
+
+  .btn-industrial-shadow {
+    filter: drop-shadow(0 10px 30px rgba(10, 142, 72, 0.45));
+  }
+
+  .btn-industrial-icon {
+    --slant: 11px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    color: #fff;
+    text-decoration: none;
+    background-color: #0a8e48;
+    clip-path: polygon(
+      var(--slant) 0,
+      100% 0,
+      calc(100% - var(--slant)) 100%,
+      0 100%
+    );
+    filter: drop-shadow(0 10px 30px rgba(10, 142, 72, 0.45));
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .btn-industrial-icon:hover {
+    background-color: #0fb85c;
+    transform: scale(1.08);
   }
 }
 
