@@ -73,10 +73,10 @@ function Header() {
           <img src={logoFk} alt="Grupo FK Industrial Solutions" className="h-9 w-auto" />
         </a>
         <nav className="hidden md:flex items-center gap-8 text-base font-medium text-[#F7F7F4]/80">
-          <a href="#problema" className="hover:text-white transition">Problema</a>
-          <a href="#solucao" className="hover:text-white transition">Solução</a>
-          <a href="#roi" className="hover:text-white transition">ROI</a>
-          <a href="#provas" className="hover:text-white transition">Provas</a>
+          <a href="#problema" className="hover:text-white transition">Desafios</a>
+          <a href="#solucao" className="hover:text-white transition">Tecnologia</a>
+          <a href="#roi" className="hover:text-white transition">Retorno</a>
+          <a href="#provas" className="hover:text-white transition">Depoimentos</a>
         </nav>
         <IndustrialButton href="#formulario" size="sm" className="hidden sm:inline-flex">
           Solicitar proposta
@@ -794,8 +794,7 @@ function LeadForm() {
       <div className="absolute inset-x-0 top-0 h-3 diagonal-stripes opacity-90" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 items-start">
-          <Reveal variant="left">
-          <div className="lg:sticky lg:top-24">
+          <Reveal variant="left" className="lg:sticky lg:top-24 self-start">
             <SectionLabel color="red">07 — Triagem Inteligente</SectionLabel>
             <h2 className="mt-4 font-display font-black text-3xl sm:text-4xl lg:text-5xl leading-[1.05] text-[#080808]">
               Simule a Proposta Ideal para a sua Produção
@@ -817,7 +816,6 @@ function LeadForm() {
                 </li>
               ))}
             </ul>
-          </div>
           </Reveal>
 
           <Reveal variant="right" delay={120}>
@@ -953,42 +951,12 @@ function Radio({ name, label, block }: { name: string; label: string; block?: bo
 /* ---------------------- FOOTER ---------------------- */
 function Footer() {
   return (
-    <footer className="bg-[#080808] text-[#F7F7F4]/70 pt-12 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-12 border-t border-white/10">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-[1.5fr_1fr_1fr] gap-10">
-          <div>
-            <img src={logoFk} alt="Grupo FK" className="h-12 w-auto" />
-            <p className="mt-4 text-base leading-relaxed max-w-sm">
-              Grupo FK / Fankorte — Mecanização industrial de fluxo contínuo para agroindústrias,
-              produtores, cooperativas e associações.
-            </p>
-          </div>
-          <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-              Navegação
-            </div>
-            <ul className="mt-4 space-y-2 text-base">
-              <li><a href="#problema" className="hover:text-white">Problema</a></li>
-              <li><a href="#solucao" className="hover:text-white">Solução</a></li>
-              <li><a href="#roi" className="hover:text-white">ROI</a></li>
-              <li><a href="#formulario" className="hover:text-white">Proposta</a></li>
-            </ul>
-          </div>
-          <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-              Conformidade
-            </div>
-            <ul className="mt-4 space-y-2 text-base">
-              <li>ANVISA — Higiene Alimentar</li>
-              <li>NR12 — Segurança Industrial</li>
-              <li>BNDES Finame · PRONAF</li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-10 pt-6 border-t border-white/10 text-xs flex flex-col sm:flex-row justify-between gap-3 pb-0">
-          <span>© {new Date().getFullYear()} Grupo FK · Fankorte Industrial Solutions</span>
-          <span>Tecnologia Patenteada · Fabricação Brasileira</span>
-        </div>
+    <footer className="bg-[#080808] text-[#F7F7F4]/70 py-8 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-8 border-t border-white/10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+        <img src={logoFk} alt="Grupo FK" className="h-9 w-auto" />
+        <p className="text-center sm:text-right">
+          © {new Date().getFullYear()} Grupo FK · Fankorte Industrial Solutions
+        </p>
       </div>
     </footer>
   );

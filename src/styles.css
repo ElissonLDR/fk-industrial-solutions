@@ -131,43 +131,39 @@
 @layer utilities {
   .reveal {
     opacity: 0;
-    transition-property: opacity, transform, filter;
+    transition-property: opacity, transform;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity, transform, filter;
   }
 
   .reveal-visible {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 
   .reveal-up {
-    transform: translateY(32px);
+    transform: translateY(24px);
   }
 
   .reveal-down {
-    transform: translateY(-24px);
+    transform: translateY(-20px);
   }
 
   .reveal-left {
-    transform: translateX(-32px);
+    transform: translateX(-24px);
   }
 
   .reveal-right {
-    transform: translateX(32px);
+    transform: translateX(24px);
   }
 
   .reveal-text {
-    transform: translateY(16px);
-    filter: blur(6px);
+    transform: translateY(20px);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .reveal {
       opacity: 1;
       transform: none;
-      filter: none;
       transition: none;
     }
   }

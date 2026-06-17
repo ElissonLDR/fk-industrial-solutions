@@ -30,11 +30,17 @@ export function Reveal({
   immediate = false,
 }: RevealProps) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState(immediate && delay === 0);
 
   React.useEffect(() => {
+    const show = () => setVisible(true);
+
     if (immediate) {
-      const timer = window.setTimeout(() => setVisible(true), delay);
+      if (delay === 0) {
+        show();
+        return;
+      }
+      const timer = window.setTimeout(show, delay);
       return () => window.clearTimeout(timer);
     }
 
@@ -44,11 +50,15 @@ export function Reveal({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          if (delay > 0) {
+            window.setTimeout(show, delay);
+          } else {
+            show();
+          }
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -48px 0px" },
+      { threshold: 0.05, rootMargin: "0px 0px -5% 0px" },
     );
 
     observer.observe(el);
@@ -59,10 +69,7 @@ export function Reveal({
     <div
       ref={ref}
       className={cn("reveal", variantClasses[variant], visible && "reveal-visible", className)}
-      style={{
-        transitionDuration: `${duration}ms`,
-        transitionDelay: `${delay}ms`,
-      }}
+      style={{ transitionDuration: `${duration}ms` }}
     >
       {children}
     </div>
