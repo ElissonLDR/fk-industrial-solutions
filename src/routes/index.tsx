@@ -171,7 +171,7 @@ function Spec({
 }: {
   end: number;
   suffix?: string;
-  unit: string;
+  unit?: string;
   label: string;
 }) {
   const { value, ref } = useCountUp(end);
@@ -588,7 +588,7 @@ function RoiCard({
     red: "bg-[#BD1C2C] text-white",
   }[tone];
 
-  const { value, ref } = useCountAnimation(animation.end, {
+  const { value, ref } = useCountAnimation<HTMLDivElement>(animation.end, {
     start: animation.start,
     direction: animation.direction,
     decimals: animation.decimals ?? 0,
