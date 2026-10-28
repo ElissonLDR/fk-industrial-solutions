@@ -822,6 +822,10 @@ function LeadForm() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              if (typeof window !== "undefined") {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({ event: "lead_form_submit" });
+              }
               setSubmitted(true);
             }}
             className="bg-white border border-[#080808]/10 p-8 lg:p-10 shadow-[0_30px_80px_-40px_rgba(8,8,8,0.4)]"
