@@ -15,6 +15,7 @@ type LovableEvents = {
 declare global {
   interface Window {
     __lovableEvents?: LovableEvents;
+    dataLayer?: Record<string, unknown>[];
   }
 }
 
