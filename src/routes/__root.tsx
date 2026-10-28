@@ -89,6 +89,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/313237d3-bf8d-48cc-afff-bf7d0478c7b2/id-preview-4ae11d08--95598059-2a26-4a13-af79-39ab830ec783.lovable.app-1781670227445.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/313237d3-bf8d-48cc-afff-bf7d0478c7b2/id-preview-4ae11d08--95598059-2a26-4a13-af79-39ab830ec783.lovable.app-1781670227445.png" },
     ],
+    scripts: [
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=AW-18358940783",
+        async: true,
+      },
+      {
+        type: "text/javascript",
+        children:
+          "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18358940783');",
+      },
+    ],
     links: [
       {
         rel: "stylesheet",
