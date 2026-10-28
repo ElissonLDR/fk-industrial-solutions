@@ -823,8 +823,9 @@ function LeadForm() {
             onSubmit={(e) => {
               e.preventDefault();
               if (typeof window !== "undefined") {
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({ event: "lead_form_submit" });
+                const w = window as Window & { dataLayer?: Record<string, unknown>[] };
+                w.dataLayer = w.dataLayer || [];
+                w.dataLayer.push({ event: "lead_form_submit" });
               }
               setSubmitted(true);
             }}
