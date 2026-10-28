@@ -7,13 +7,16 @@ type CountAnimationOptions = {
   decimals?: number;
 };
 
-export function useCountAnimation(end: number, options: CountAnimationOptions = {}) {
+export function useCountAnimation<T extends HTMLElement = HTMLSpanElement>(
+  end: number,
+  options: CountAnimationOptions = {},
+) {
   const { direction = "up", duration = 1800, decimals = 0 } = options;
   const start = options.start ?? (direction === "up" ? 0 : end * 1.3);
 
   const [value, setValue] = useState(start);
   const [started, setStarted] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
+  const ref = useRef<T>(null);
 
   useEffect(() => {
     const el = ref.current;
