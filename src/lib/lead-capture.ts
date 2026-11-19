@@ -37,7 +37,7 @@ export function buildLeadPayload(input: unknown, page: string, storage: Pick<Sto
   };
 }
 
-export async function sendLead(payload: ReturnType<typeof buildLeadPayload>, onSuccess: () => void, request: typeof fetch = fetch) {
+export async function sendLead(payload: ReturnType<typeof buildLeadPayload>, onSuccess: () => void, request: (url: string, options: RequestInit) => Promise<Response> = fetch) {
   const response = await request(leadWebhook, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
