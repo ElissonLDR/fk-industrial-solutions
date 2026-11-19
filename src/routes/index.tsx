@@ -24,6 +24,7 @@ import logoFk from "@/assets/logo-fk.png";
 import { IndustrialButton } from "@/components/industrial-button";
 import { Reveal } from "@/components/reveal";
 import { formatCurrency, formatMonths, useCountAnimation, useCountUp } from "@/hooks/use-count-up";
+import { buildLeadPayload, leadSchema, sendLead } from "@/lib/lead-capture";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,6 +36,8 @@ export const Route = createFileRoute("/")({
           "Tecnologia patenteada Fankorte: reduza até 80% a mão de obra com facas autoajustáveis em aço inox AISI 304. Processe até 900 raízes/hora.",
       },
       { property: "og:title", content: "Grupo FK | Mecanização Industrial de Pós-Colheita" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:description",
         content:
@@ -788,6 +791,47 @@ function VideoCard({ index }: { index: number }) {
 /* ---------------------- FORM ---------------------- */
 function LeadForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (sending) return;
+    const form = new FormData(e.currentTarget);
+    const parsed = leadSchema.safeParse({
+      nome: form.get("nome"),
+      telefone: form.get("telefone"),
+      cultura: form.get("cultura"),
+      volume_diario: form.get("volume"),
+      cnpj_ie: form.get("cnpj"),
+    });
+    if (!parsed.success) {
+      setError(parsed.error.issues[0]?.message || "Preencha todos os campos obrigatórios.");
+      return;
+    }
+    setError("");
+    setSending(true);
+    try {
+      let storage: Pick<Storage, "getItem">;
+      try {
+        storage = window.sessionStorage;
+        storage.getItem("referrer");
+      } catch {
+        storage = { getItem: () => null };
+      }
+      const payload = buildLeadPayload(parsed.data, window.location.href, storage);
+      await sendLead(payload, () => {
+        const w = window as Window & { dataLayer?: Record<string, unknown>[] };
+        w.dataLayer = w.dataLayer || [];
+        w.dataLayer.push({ event: "lead_form_submit" });
+        setSubmitted(true);
+      });
+    } catch {
+      setError("Não conseguimos enviar. Tente novamente.");
+    } finally {
+      setSending(false);
+    }
+  }
 
   return (
     <section id="formulario" className="py-24 lg:py-32 bg-[#F7F7F4] relative">
@@ -820,15 +864,8 @@ function LeadForm() {
 
           <Reveal variant="right" delay={120}>
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (typeof window !== "undefined") {
-                const w = window as Window & { dataLayer?: Record<string, unknown>[] };
-                w.dataLayer = w.dataLayer || [];
-                w.dataLayer.push({ event: "lead_form_submit" });
-              }
-              setSubmitted(true);
-            }}
+            onSubmit={handleSubmit}
+            aria-busy={sending}
             className="bg-white border border-[#080808]/10 p-8 lg:p-10 shadow-[0_30px_80px_-40px_rgba(8,8,8,0.4)]"
           >
             {submitted ? (
@@ -854,6 +891,7 @@ function LeadForm() {
                   <Field label="Nome Completo" required>
                     <input
                       type="text"
+                      name="nome"
                       required
                       maxLength={100}
                       className="w-full bg-[#F7F7F4] border border-[#080808]/15 px-4 py-3.5 text-base text-[#080808] focus:outline-none focus:border-[#BD1C2C] focus:bg-white transition"
@@ -864,6 +902,7 @@ function LeadForm() {
                   <Field label="Telefone / WhatsApp Comercial" required>
                     <input
                       type="tel"
+                      name="telefone"
                       required
                       maxLength={20}
                       className="w-full bg-[#F7F7F4] border border-[#080808]/15 px-4 py-3.5 text-base text-[#080808] focus:outline-none focus:border-[#BD1C2C] focus:bg-white transition"
@@ -902,10 +941,13 @@ function LeadForm() {
                   size="lg"
                   fullWidth
                   shadow
+                  disabled={sending}
                   className="mt-8"
                 >
-                  Enviar e Falar com Engenheiro
+                  {sending ? "Enviando..." : "Enviar e Falar com Engenheiro"}
                 </IndustrialButton>
+
+                {error && <p role="alert" className="mt-4 text-sm text-destructive">{error}</p>}
 
                 <p className="mt-4 text-xs text-[#080808]/60 text-center">
                   Seus dados são tratados com sigilo. Sem spam.
@@ -947,7 +989,7 @@ function Radio({ name, label, block }: { name: string; label: string; block?: bo
         block ? "w-full" : ""
       }`}
     >
-      <input type="radio" name={name} className="accent-[#BD1C2C]" required />
+      <input type="radio" name={name} value={label} className="accent-[#BD1C2C]" required />
       <span className="text-base font-medium">{label}</span>
     </label>
   );
