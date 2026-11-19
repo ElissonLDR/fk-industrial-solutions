@@ -1,4 +1,4 @@
 - [x] Capture session attribution across pages.
 - [x] Send validated leads to Make with loading, error and success states.
 - [x] Verify real delivery and conversion timing.
-- [ ] Publish the changes to the connected domain.
+- [x] Request publication to the connected domain (deployment scheduled).
