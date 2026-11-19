@@ -985,12 +985,12 @@ function Field({
 function Radio({ name, label, block }: { name: string; label: string; block?: boolean }) {
   return (
     <label
-      className={`flex items-center gap-2 border border-[#080808]/15 bg-[#F7F7F4] px-4 py-3 cursor-pointer hover:border-[#BD1C2C] transition has-[:checked]:border-[#BD1C2C] has-[:checked]:bg-[#BD1C2C]/5 has-[:checked]:text-[#BD1C2C] ${
+      className={`flex items-center gap-2 border border-[#080808]/15 bg-[#F7F7F4] px-2 sm:px-4 py-3 cursor-pointer hover:border-[#BD1C2C] transition has-[:checked]:border-[#BD1C2C] has-[:checked]:bg-[#BD1C2C]/5 has-[:checked]:text-[#BD1C2C] ${
         block ? "w-full" : ""
       }`}
     >
       <input type="radio" name={name} value={label} className="accent-[#BD1C2C]" required />
-      <span className="text-base font-medium">{label}</span>
+      <span className="text-sm sm:text-base font-medium">{label}</span>
     </label>
   );
 }
